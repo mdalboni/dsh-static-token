@@ -1,5 +1,7 @@
 # dsh-static-token
 
+English | [中文](README.zh.md)
+
 A DeepSeek Harness (DSH) plugin to configure a **persistent, static launch token** for the Web GUI, preventing session expiration and authentication issues behind reverse proxies or across remote devices.
 
 ---
