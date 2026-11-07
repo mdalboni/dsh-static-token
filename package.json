@@ -1,0 +1,25 @@
+{
+  "name": "dsh-static-token",
+  "version": "1.0.0",
+  "keywords": [
+    "dsh",
+    "plugin",
+    "authentication",
+    "token"
+  ],
+  "description": "Configurable static launch token for DeepSeek Harness Web GUI",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
