@@ -8,6 +8,16 @@
     "token"
   ],
   "description": "Configurable static launch token for DeepSeek Harness Web GUI",
+  "author": "Maxwell Dalboni",
+  "license": "MIT",
+  "homepage": "https://github.com/mdalboni/dsh-static-token#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdalboni/dsh-static-token.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mdalboni/dsh-static-token/issues"
+  },
   "type": "module",
   "main": "index.js",
   "exports": {
