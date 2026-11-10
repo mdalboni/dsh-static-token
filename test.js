@@ -33,13 +33,13 @@ const connLib = await import('/home/mdalboni/.local/lib/node_modules/@deepseek-a
   const ctx = new Context();
   ctx.provide('credentials', { modifyRecord: async (_, fn) => fn(undefined) });
   await ctx.plugin(connLib, { trustedHosts: ['dsh.lab.dalboni.com.br'] });
-  await ctx.plugin(plugin, { token: 'my-static-token' });
+  await ctx.plugin(plugin, { token: 'my-static-token-secret-123' });
 
   let status = 0;
   let headers = {};
   const mockReq = {
     method: 'GET',
-    url: '/?token=my-static-token',
+    url: '/?token=my-static-token-secret-123',
     headers: { host: 'dsh.lab.dalboni.com.br' }
   };
   const mockRes = {
@@ -49,6 +49,15 @@ const connLib = await import('/home/mdalboni/.local/lib/node_modules/@deepseek-a
   ctx.connection.authorizeIndex(mockReq, mockRes);
   assert.strictEqual(status, 303);
   assert.ok(headers['set-cookie']);
+}
+
+// 4. Test minimum length validation (< 16 characters throws)
+{
+  const ctx = new Context();
+  assert.throws(
+    () => plugin.apply(ctx, { token: 'too-short' }),
+    /static token must be at least 16 characters long/
+  );
 }
 
 console.log('dsh-static-token tests passed.');

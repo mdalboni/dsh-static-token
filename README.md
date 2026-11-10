@@ -19,9 +19,18 @@ By default, DSH generates an ephemeral, in-memory launch token every time the se
 ## Features
 
 - **Static Launch Token:** Keep the same token across service restarts and host reboots.
+- **Minimum Length Enforcement:** Enforces a minimum token length of 16 characters to prevent weak authentication credentials.
 - **Environment Variable Priority:** Reads `DSH_WEB_TOKEN` from the process environment first, with fallback to profile plugin configuration.
 - **Seamless Reverse Proxy Integration:** Simplifies setting up bookmarks or forward-auth setups without constantly tracking server logs.
 - **Zero Overhead:** Pure ESM, no external runtime dependencies, minimal memory footprint.
+
+---
+
+## Security & Architecture Notes
+
+1. **Token Strength:** Tokens shorter than 16 characters are rejected on startup. Use a long, cryptographically random string (e.g. `openssl rand -hex 24`).
+2. **Reverse Proxy & Host Header:** When running behind a reverse proxy (Traefik, Nginx, Caddy), DSH's native connection plugin requires proxy domains to be listed under `trustedHosts` in your DSH configuration (e.g., `dsh.lab.example.com`). `dsh-static-token` only configures authentication; routing and host validation remain DSH host settings.
+3. **Internal Host Property:** This plugin overrides `ctx.connection.browserAuth.launchToken`. Major upstream DSH updates that refactor connection internals might require corresponding plugin updates.
 
 ---
 
